@@ -6,7 +6,7 @@
 @media(prefers-color-scheme:dark){:root{--bg:#0e1116;--card:#171b23;--tx:#e8eaf0;--mu:#8b93a5;--bd:#262c38;--ac:#ff4d63;--ok:#34d399;--wn:#fbbf24}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,sans-serif}
 header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--bd)}
-.logo{font-weight:800}.logo b{color:var(--ac)}.sp{flex:1}
+.logo{font-weight:800;color:var(--ac)}.logo b{color:var(--ac)}.sp{flex:1}
 input,select,button{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:6px 10px}
 button{cursor:pointer;background:var(--card)}button.p{background:var(--ac);border-color:var(--ac);color:#fff}button.on{background:var(--tx);color:var(--bg)}
 main{padding:16px;display:grid;gap:14px;max-width:1500px;margin:auto}
@@ -22,11 +22,11 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--mu);m
 table{width:100%;border-collapse:collapse}td,th{text-align:start;padding:6px 4px;border-top:1px solid var(--bd)}
 #login{max-width:340px;margin:12vh auto;display:grid;gap:10px}.hide{display:none}
 </style></head><body>
-<div id="login" class="card hide"><div class="logo">NEWS<b>ROOM</b> · <span data-i="signin">Sign in</span></div><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
+<div id="login" class="card hide"><div class="logo" data-i="logo">NEWSROOM</div><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
 <input id="em" type="email" placeholder="Email" data-ph="email"><input id="pw" type="password" placeholder="Password (min 6)" data-ph="password">
 <button class="p" id="in" data-i="signin">Sign in</button><div id="msg" class="meta"></div></div>
 <div id="app" class="hide">
-<header><div class="logo">NEWS<b>ROOM</b> · Command</div><input id="q" placeholder="Search feed…" data-ph="search"><span class="sp"></span><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
+<header><div class="logo" data-i="logo">NEWSROOM</div><input id="q" placeholder="Search feed…" data-ph="search"><span class="sp"></span><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
 <span id="who" class="meta"></span>
 <select id="mystatus"><option value="available">Available</option><option value="on_assignment">On assignment</option><option value="live">Live</option><option value="break">Break</option></select>
 <button id="out" data-i="signout">Sign out</button></header>
