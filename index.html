@@ -19,21 +19,21 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--mu);m
 .kan{display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:10px;overflow-x:auto}
 .col{background:var(--bg);border-radius:10px;padding:8px;min-height:100px}.col h3{margin:0 0 6px;font-size:12px;color:var(--mu)}
 .st{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px;margin-bottom:6px}
-table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:6px 4px;border-top:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse}td,th{text-align:start;padding:6px 4px;border-top:1px solid var(--bd)}
 #login{max-width:340px;margin:12vh auto;display:grid;gap:10px}.hide{display:none}
 </style></head><body>
-<div id="login" class="card hide"><div class="logo">NEWS<b>ROOM</b> · Sign in</div>
-<input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (min 6)">
-<button class="p" id="in">Sign in</button><button id="up">Create account</button><div id="msg" class="meta"></div></div>
+<div id="login" class="card hide"><div class="logo">NEWS<b>ROOM</b> · <span data-i="signin">Sign in</span></div><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
+<input id="em" type="email" placeholder="Email" data-ph="email"><input id="pw" type="password" placeholder="Password (min 6)" data-ph="password">
+<button class="p" id="in" data-i="signin">Sign in</button><div id="msg" class="meta"></div></div>
 <div id="app" class="hide">
-<header><div class="logo">NEWS<b>ROOM</b> · Command</div><input id="q" placeholder="Search feed…"><span class="sp"></span>
+<header><div class="logo">NEWS<b>ROOM</b> · Command</div><input id="q" placeholder="Search feed…" data-ph="search"><span class="sp"></span><select class="langsel"><option value="ckb">کوردی</option><option value="en">English</option></select>
 <span id="who" class="meta"></span>
 <select id="mystatus"><option value="available">Available</option><option value="on_assignment">On assignment</option><option value="live">Live</option><option value="break">Break</option></select>
-<button id="out">Sign out</button></header>
+<button id="out" data-i="signout">Sign out</button></header>
 <main><section class="kpis" id="kpis"></section>
-<section class="card"><h2>Incoming feed</h2><div class="f" id="fl"></div><div class="list" id="feed"></div></section>
-<section class="card"><h2>Story pipeline</h2><div class="kan" id="kan"></div></section>
-<section class="card"><h2>Team on duty</h2><table id="crew"></table></section></main></div>
+<section class="card"><h2 data-i="incoming">Incoming feed</h2><div class="f" id="fl"></div><div class="list" id="feed"></div></section>
+<section class="card"><h2 data-i="pipeline">Story pipeline</h2><div class="kan" id="kan"></div></section>
+<section class="card"><h2 data-i="team">Team on duty</h2><table id="crew"></table></section></main></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script><script src="app.js"></script>
 </body></html>
