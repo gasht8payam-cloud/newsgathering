@@ -4,6 +4,7 @@ const PRI = ["All","P1","P2","P3"];
 let me = null, feed = [], stories = [], people = [], filt = { pri: "All" }, timer;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const safeUrl = u => /^https?:\/\//i.test(u || "");
 const name = id => (people.find(p => p.id === id) || {}).full_name || "—";
 const ago = t => { const m = Math.max(0, (Date.now() - new Date(t)) / 6e4 | 0); return m < 1 ? "now" : m < 60 ? m + "m ago" : (m / 60 | 0) + "h ago"; };
 
@@ -48,7 +49,7 @@ function render() {
   $("kpis").innerHTML = [["Feed items", feed.length], ["Breaking (P1)", feed.filter(f => f.priority === "P1").length], ["Awaiting verification", feed.filter(f => !f.verified).length], ["In progress", stories.length - onAir], ["On air", onAir], ["Staff online", people.filter(p => p.status !== "break").length]]
     .map(k => `<div class="card"><div class="n">${k[1]}</div><div class="l">${k[0]}</div></div>`).join("");
   $("fl").innerHTML = PRI.map(p => `<button class="${filt.pri === p ? "on" : ""}" data-pri="${p}">${p}</button>`).join("");
-  $("feed").innerHTML = v.map(f => `<div class="item"><b>${esc(f.title)}</b><div class="meta"><span class="${f.priority}">${f.priority}</span><span>${esc(f.source)}</span><span>${esc(f.category)}</span><span>${ago(f.created_at)}</span><span class="${f.verified ? "v" : "u"}">${f.verified ? "✓ Verified" : "⚠ Unverified"}</span>${f.claimed_by ? `<span>→ ${esc(name(f.claimed_by))}</span>` : ""}</div>
+  $("feed").innerHTML = v.map(f => `<div class="item"><b>${safeUrl(f.url) ? `<a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${esc(f.title)} ↗</a>` : esc(f.title)}</b><div class="meta"><span class="${f.priority}">${f.priority}</span><span>${esc(f.source)}</span>${f.scope ? `<span>${esc(f.scope)}</span>` : ""}<span>${esc(f.category)}</span><span>${ago(f.published_at || f.created_at)}</span><span class="${f.verified ? "v" : "u"}">${f.verified ? "✓ Verified" : "⚠ Unverified"}</span>${f.claimed_by ? `<span>→ ${esc(name(f.claimed_by))}</span>` : ""}</div>
     ${f.verified ? "" : `<button data-a="verify" data-id="${f.id}">Mark verified</button> `}${f.claimed_by ? "" : `<button data-a="claim" data-id="${f.id}">Claim</button> `}<button class="p" data-a="story" data-id="${f.id}">Create story</button></div>`).join("") || '<div class="meta">No items.</div>';
   $("kan").innerHTML = STAGES.map((n, i) => `<div class="col"><h3>${n} (${stories.filter(s => s.stage === i).length})</h3>${stories.filter(s => s.stage === i).map(s => `<div class="st"><b>${esc(s.title)}</b><div class="meta">${esc(s.category)} · ${esc(name(s.assignee))}</div>${i < 4 ? `<button data-a="adv" data-id="${s.id}">Advance →</button>` : ""}</div>`).join("")}</div>`).join("");
   $("crew").innerHTML = "<tr><th>Name</th><th>Role</th><th>Location</th><th>Status</th></tr>" + people.map(p => `<tr><td>${esc(p.full_name)}</td><td>${p.role}</td><td>${esc(p.location || "—")}</td><td>${p.status.replace("_", " ")}</td></tr>`).join("");
